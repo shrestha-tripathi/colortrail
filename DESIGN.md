@@ -114,6 +114,37 @@ Use class `eyebrow` — Geist Mono, 12px, weight 500, UPPERCASE, letter-spacing 
 Use `style="box-shadow: inset 0 1px 0 var(--color-border);"` on the section element
 (NOT `border-top`). This sticks to the shadow-as-border philosophy.
 
+## Brand exception: VIBGYOR gradient
+
+The product IS color — so the brand mark uses a **VIBGYOR rainbow gradient**.
+This is the ONE intentional exception to the otherwise monochrome system.
+Used only in:
+
+1. **`<BrandIcon />`** component (nav, footer, hero card icon)
+2. **`.btn-brand`** utility class — primary "Pick a color" CTA (gradient bg + animated shimmer + soft halo)
+3. **`.text-brand-gradient`** utility class — single accent word in hero ("color")
+4. **`.brand-halo`** — soft rainbow blur behind the hero CTA cluster
+5. **`favicon.svg`** — VIBGYOR background with white eyedropper on top
+
+Tokens in `global.css`:
+- `--brand-gradient` — full 7-stop VIBGYOR linear gradient (135°)
+- `--brand-gradient-soft` — same with 85% alpha for overlays
+
+Stops (work on both light + dark):
+```
+#ff3d3d (red) → #ff8a3d (orange) → #ffd23d (yellow) → #3ddc84 (green)
+→ #3da5ff (blue) → #7a5af8 (indigo) → #c450ff (violet)
+```
+
+Animations (8s loop, respects `prefers-reduced-motion`):
+- `brand-shimmer` — gradient `background-position` sweeps left-right
+- `brand-halo-pulse` — soft scale + opacity breathing under hero CTA
+
+**Rule:** never use the brand gradient on body text, secondary buttons,
+cards, borders, or anywhere outside the 5 surfaces listed above. The
+restraint is what makes it land — one splash of color on a monochrome
+canvas is the entire concept.
+
 ## Hard rules
 
 1. **Use shadow-as-border instead of CSS `border:`** — `box-shadow: var(--shadow-ring)`
@@ -160,7 +191,8 @@ const contrast = (fg, bg) => (Math.max(lum(fg), lum(bg)) + 0.05) /
 - ❌ Using `border-*` Tailwind utilities for cards / sections (use `--shadow-ring`)
 - ❌ `font-bold` (700) on body text — max weight is `font-semibold` (600)
 - ❌ Positive letter-spacing on display headings (always negative)
-- ❌ Decorative gradients, accents, or color washes
+- ❌ **Brand gradient OUTSIDE the 5 sanctioned surfaces** (see brand exception above)
+- ❌ Decorative gradients, accents, or color washes anywhere else
 - ❌ Opacity modifiers on color tokens (`/40`, `/80`) — fails WCAG on light
 - ❌ External color libraries (chroma.js, color.js) — we do the math
 - ❌ Adding accounts, login, server-side anything — the moat is "fully local"

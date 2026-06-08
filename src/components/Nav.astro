@@ -1,6 +1,7 @@
 ---
 import { site, b } from "../site.config";
 import ThemeToggle from "./ThemeToggle.astro";
+import BrandIcon from "./BrandIcon.astro";
 ---
 
 <header
@@ -14,20 +15,7 @@ import ThemeToggle from "./ThemeToggle.astro";
       aria-label={`${site.name} home`}
       style="letter-spacing: -0.02em;"
     >
-      <svg
-        viewBox="0 0 24 24"
-        class="w-5 h-5"
-        aria-hidden="true"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m2 22 1-1h3l9-9" />
-        <path d="M3 21v-3l9-9" />
-        <path d="m15 6 3.4-3.4a2.121 2.121 0 1 1 3 3L18 9l.4.4a2.121 2.121 0 1 1-3 3l-3.8-3.8a2.121 2.121 0 1 1 3-3l.4.4Z" />
-      </svg>
+      <BrandIcon size={22} />
       <span>{site.name}</span>
     </a>
 

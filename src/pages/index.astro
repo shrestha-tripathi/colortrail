@@ -6,20 +6,24 @@ import { site } from "../site.config";
 // FAQPage JSON-LD — inlined for SEO
 const faqs = [
   {
+    q: "I clicked the eyedropper, but switching tabs cancels it. How do I pick from another tab?",
+    a: "Use the 'Pick from screenshot' button next to the live picker. It uses the getDisplayMedia API to capture a single frame from any window, tab, or screen you choose — then you can leisurely pick colors from that frozen frame with a built-in magnifier. The live EyeDropper API is locked to whatever's visible at click-time and cancels on focus loss; that's a browser limitation, not a ColorTrail one.",
+  },
+  {
     q: "What is the EyeDropper API?",
     a: "The EyeDropper API is a browser-native feature (Chrome 95+, Edge 95+, Brave, Opera) that turns your cursor into a system-wide color picker. It can sample any pixel visible on your screen — including outside the browser, across multiple monitors. It requires zero permissions and works fully offline.",
   },
   {
-    q: "Why doesn't this work in Firefox or Safari?",
-    a: "Firefox and Safari haven't shipped the EyeDropper API yet. Mozilla's official position is that they don't plan to implement it; WebKit (Safari) hasn't signaled support either. We recommend using Chrome, Edge, Brave, or Opera. We're considering an image-upload fallback for Firefox/Safari users in a future release.",
+    q: "Why doesn't the live picker work in Firefox or Safari?",
+    a: "Firefox and Safari haven't shipped the EyeDropper API yet. Mozilla's official position is that they don't plan to implement it; WebKit (Safari) hasn't signaled support either. For those browsers, use 'Pick from screenshot' instead — getDisplayMedia is universally supported (Chrome 72+, Firefox 66+, Safari 13+, Edge 79+).",
   },
   {
     q: "Is ColorTrail really free? What's the catch?",
     a: "100% free, forever. No accounts, no signup, no ads, no upsells. Your colors never leave your device — everything runs locally in your browser. We don't collect, store, or transmit any color data you pick. There is no catch.",
   },
   {
-    q: "Can ColorTrail see the colors I pick?",
-    a: "No. The EyeDropper API is fully client-side — colors are returned directly to the JavaScript running in your browser, never sent over the network. Your palette history is stored in your browser's localStorage and never leaves your device.",
+    q: "Can ColorTrail see the colors I pick or screenshots I capture?",
+    a: "No. Both the EyeDropper API and getDisplayMedia API are fully client-side — colors and pixel data stay in JavaScript running in your browser, never sent over the network. Your palette history is stored in your browser's localStorage and never leaves your device. Captured screenshot frames are held in browser memory only and freed when you close the modal.",
   },
   {
     q: "What is OKLCH and why should I care?",
@@ -63,12 +67,12 @@ const appJsonLd = {
       <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-pill text-[12px] font-medium font-mono uppercase tracking-wider"
            style="background-color: var(--color-badge-bg); color: var(--color-badge-fg);">
         <span class="w-1.5 h-1.5 rounded-full" style="background-color: var(--color-badge-fg);"></span>
-        Built on window.EyeDropper
+        EyeDropper + Screenshot picker
       </div>
 
       <h1 class="heading-display text-[44px] sm:text-[56px] lg:text-[64px] text-balance text-[var(--color-fg)]">
-        Pick any color
-        <br />
+        Pick any
+        <span class="text-brand-gradient">color</span>
         from your screen.
       </h1>
       <p class="mt-5 text-[18px] sm:text-[20px] leading-[1.6] text-[var(--color-fg-secondary)] max-w-xl mx-auto text-balance">
@@ -84,48 +88,80 @@ const appJsonLd = {
     </div>
   </section>
 
-  {/* ===== HOW IT WORKS ===== */}
+  {/* ===== TWO MODES ===== */}
   <section class="px-4 sm:px-6 py-20" style="box-shadow: inset 0 1px 0 var(--color-border);">
     <div class="mx-auto max-w-5xl">
       <div class="text-center mb-14">
-        <p class="eyebrow mb-3">Workflow</p>
+        <p class="eyebrow mb-3">Two ways to pick</p>
         <h2 class="heading-section text-[32px] sm:text-[40px] text-[var(--color-fg)] text-balance">
-          Three taps. No setup.
+          One product, every browser.
         </h2>
-        <p class="mt-4 text-[16px] sm:text-[18px] text-[var(--color-fg-secondary)] max-w-xl mx-auto leading-relaxed">
-          From cursor to clipboard in under three seconds.
+        <p class="mt-4 text-[16px] sm:text-[18px] text-[var(--color-fg-secondary)] max-w-2xl mx-auto leading-relaxed">
+          The live picker is instant magic. The screenshot picker is universal and lets you pick from any tab, window, or screen — without losing focus.
         </p>
       </div>
 
-      <div class="grid sm:grid-cols-3 gap-6">
-        {[
-          {
-            num: "01",
-            title: "Click the button",
-            body: "Tap the dark CTA above. Your cursor instantly turns into a precision eyedropper.",
-          },
-          {
-            num: "02",
-            title: "Click anywhere",
-            body: "Sample any pixel — your IDE, Photoshop, a YouTube video, another monitor. Zoom mode shows pixel detail.",
-          },
-          {
-            num: "03",
-            title: "Copy in any format",
-            body: "HEX, RGB, HSL, or OKLCH — one tap to clipboard. Palette saves locally as you build it.",
-          },
-        ].map((step) => (
-          <div
-            class="rounded-md p-6"
-            style="background-color: var(--color-bg); box-shadow: var(--shadow-card);"
-          >
-            <p class="font-mono text-[12px] font-medium uppercase tracking-wider text-[var(--color-fg-subtle)] mb-3">
-              {step.num}
-            </p>
-            <h3 class="heading-card text-[20px] text-[var(--color-fg)] mb-2">{step.title}</h3>
-            <p class="text-[15px] leading-relaxed text-[var(--color-fg-secondary)]">{step.body}</p>
+      <div class="grid sm:grid-cols-2 gap-6">
+        {/* LIVE mode card */}
+        <div
+          class="rounded-md p-6"
+          style="background-color: var(--color-bg); box-shadow: var(--shadow-card);"
+        >
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-md" style="background: var(--brand-gradient); color: white;">
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m2 22 1-1h3l9-9"/>
+                <path d="M3 21v-3l9-9"/>
+                <path d="m15 6 3.4-3.4a2.121 2.121 0 1 1 3 3L18 9l.4.4a2.121 2.121 0 1 1-3 3l-3.8-3.8a2.121 2.121 0 1 1 3-3l.4.4Z"/>
+              </svg>
+            </span>
+            <div>
+              <p class="font-mono text-[11px] font-medium uppercase tracking-wider text-[var(--color-fg-subtle)]">Mode 01</p>
+              <h3 class="heading-card text-[20px] text-[var(--color-fg)]">Pick a color (live)</h3>
+            </div>
           </div>
-        ))}
+          <p class="text-[14px] leading-relaxed text-[var(--color-fg-secondary)] mb-4">
+            One tap → cursor becomes an eyedropper across your <strong class="text-[var(--color-fg)]">entire screen</strong>. Sample from any visible app, monitor, or window without leaving this tab.
+          </p>
+          <ul class="text-[13px] text-[var(--color-fg-secondary)] space-y-1.5 mb-5">
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Instant — no setup, no dialogs</li>
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Picks from anywhere visible right now</li>
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Zero permissions required</li>
+          </ul>
+          <div class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+            Chrome · Edge · Brave · Opera
+          </div>
+        </div>
+
+        {/* SHOT mode card */}
+        <div
+          class="rounded-md p-6"
+          style="background-color: var(--color-bg); box-shadow: var(--shadow-card);"
+        >
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-bg)]" style="background-color: var(--color-fg);">
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </span>
+            <div>
+              <p class="font-mono text-[11px] font-medium uppercase tracking-wider text-[var(--color-fg-subtle)]">Mode 02</p>
+              <h3 class="heading-card text-[20px] text-[var(--color-fg)]">Pick from screenshot</h3>
+            </div>
+          </div>
+          <p class="text-[14px] leading-relaxed text-[var(--color-fg-secondary)] mb-4">
+            Capture a frozen frame of any window, tab, or screen — then pick at your own pace with a <strong class="text-[var(--color-fg)]">10× magnifier</strong>. The killer fix for picking from another tab or a Figma file in another window.
+          </p>
+          <ul class="text-[13px] text-[var(--color-fg-secondary)] space-y-1.5 mb-5">
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Pick from any tab or window — no focus race</li>
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Built-in magnifier for pixel-perfect sampling</li>
+            <li class="flex gap-2"><span class="text-[var(--color-success)] shrink-0">✓</span> Works in every modern browser</li>
+          </ul>
+          <div class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-fg-subtle)]">
+            Chrome · Edge · Brave · Opera · Firefox · Safari
+          </div>
+        </div>
       </div>
     </div>
   </section>
