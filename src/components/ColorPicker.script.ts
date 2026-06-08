@@ -73,6 +73,21 @@ const shotPreviewSwatch = document.getElementById("shot-preview-swatch");
 const shotPreviewHex = document.getElementById("shot-preview-hex");
 const shotPreviewHint = document.getElementById("shot-preview-hint");
 
+// Pre-capture hint modal refs
+const hintModal = document.getElementById("hint-modal");
+const hintShortcutKbd = document.getElementById("hint-shortcut-kbd");
+const hintDontShow = document.getElementById("hint-dontshow") as HTMLInputElement | null;
+const hintContinueBtn = document.getElementById("hint-continue") as HTMLButtonElement | null;
+const hintCancelBtn = document.getElementById("hint-cancel") as HTMLButtonElement | null;
+
+// Localized shortcut text — Mac uses Cmd, others use Alt
+const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform);
+if (hintShortcutKbd) {
+  hintShortcutKbd.textContent = IS_MAC ? "⌘ + Tab" : "Alt + Tab";
+}
+
+const HINT_DISMISSED_KEY = "colortrail:screenshotHintDismissed";
+
 if (!pickBtn) {
   console.debug("ColorPicker root not found, script no-op");
 }
@@ -82,6 +97,11 @@ if (!pickBtn) {
 // ----------------------------------------------------------------------
 
 let activeHex: string | null = null;
+
+// Screenshot UX state
+let capturePending = false;
+let capturePendingStartedAt = 0;
+let captureToastShown = false;
 let shotFrame: CapturedFrame | null = null;
 let shotCtx: CanvasRenderingContext2D | null = null;
 let loupeCtx: CanvasRenderingContext2D | null = null;
@@ -348,6 +368,11 @@ function resetShotModal(): void {
 async function triggerCapture(): Promise<void> {
   if (!shotCanvas || !shotCaptureBtn) return;
 
+  // Mark "capture-in-flight" so visibility-change handler knows to toast on return
+  capturePending = true;
+  captureToastShown = false;
+  capturePendingStartedAt = Date.now();
+
   shotCaptureBtn.disabled = true;
   const originalHTML = shotCaptureBtn.innerHTML;
   shotCaptureBtn.innerHTML =
@@ -358,11 +383,13 @@ async function triggerCapture(): Promise<void> {
     const frame = await captureScreenFrame();
     if (!frame) {
       // user cancelled — restore CTA
+      capturePending = false;
       shotCaptureBtn.disabled = false;
       shotCaptureBtn.innerHTML = originalHTML;
       if (shotStatus) shotStatus.textContent = "Cancelled. Try again any time.";
       return;
     }
+    capturePending = false;
     shotFrame = frame;
     drawFrame(frame);
 
@@ -374,12 +401,110 @@ async function triggerCapture(): Promise<void> {
         '<strong class="text-[var(--color-fg)]">Hover</strong> to preview · <strong class="text-[var(--color-fg)]">click</strong> to pick';
     }
   } catch (err) {
+    capturePending = false;
     console.warn("Screen capture failed:", err);
     const msg = err instanceof Error ? err.message : String(err);
     showToast(`Capture error: ${msg}`);
     shotCaptureBtn.disabled = false;
     shotCaptureBtn.innerHTML = originalHTML;
     if (shotStatus) shotStatus.textContent = "Capture failed. Try again.";
+  }
+}
+
+// =========================================================================
+// Pre-capture hint modal — heads-up that browser focus will switch
+//
+// Shown once per browser (dismissible via "Don't show again" checkbox).
+// Wraps every call site that would otherwise trigger triggerCapture()
+// directly. Gate is preference: localStorage[HINT_DISMISSED_KEY] === "1".
+// =========================================================================
+
+function isHintDismissed(): boolean {
+  try {
+    return localStorage.getItem(HINT_DISMISSED_KEY) === "1";
+  } catch {
+    return false; // private mode — always show
+  }
+}
+
+function openHintModal(): Promise<boolean> {
+  // Returns a promise that resolves to true (user clicked Continue) or false (Cancel/Esc)
+  return new Promise((resolve) => {
+    if (!hintModal || !hintContinueBtn || !hintCancelBtn) {
+      // Modal markup missing — fail open so capture still works
+      resolve(true);
+      return;
+    }
+
+    // Reset checkbox state every time the modal opens
+    if (hintDontShow) hintDontShow.checked = false;
+
+    hintModal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+    // Focus the primary CTA for keyboard users
+    setTimeout(() => hintContinueBtn.focus(), 30);
+
+    const cleanup = () => {
+      hintModal.classList.add("hidden");
+      // Only restore overflow if shot-modal isn't also open (it has its own lock)
+      if (!shotModal || shotModal.classList.contains("hidden")) {
+        document.body.style.overflow = "";
+      }
+      hintContinueBtn.removeEventListener("click", onContinue);
+      hintCancelBtn.removeEventListener("click", onCancel);
+      document.removeEventListener("keydown", onKey);
+      hintModal.removeEventListener("click", onBackdrop);
+    };
+
+    const onContinue = () => {
+      if (hintDontShow && hintDontShow.checked) {
+        try {
+          localStorage.setItem(HINT_DISMISSED_KEY, "1");
+        } catch { /* private mode — ignore */ }
+      }
+      cleanup();
+      resolve(true);
+    };
+
+    const onCancel = () => {
+      cleanup();
+      resolve(false);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        onCancel();
+      } else if (e.key === "Enter" && document.activeElement !== hintDontShow) {
+        e.preventDefault();
+        onContinue();
+      }
+    };
+
+    const onBackdrop = (e: MouseEvent) => {
+      if (e.target === hintModal) onCancel();
+    };
+
+    hintContinueBtn.addEventListener("click", onContinue);
+    hintCancelBtn.addEventListener("click", onCancel);
+    document.addEventListener("keydown", onKey);
+    hintModal.addEventListener("click", onBackdrop);
+  });
+}
+
+async function confirmCaptureWithHint(): Promise<void> {
+  if (isHintDismissed()) {
+    void triggerCapture();
+    return;
+  }
+  const proceed = await openHintModal();
+  if (proceed) {
+    void triggerCapture();
+  } else {
+    // User cancelled the hint — reset status text so they know nothing happened
+    if (shotStatus) shotStatus.textContent = "Select a screen, window, or tab to capture…";
   }
 }
 
@@ -507,7 +632,7 @@ if (shotBtn) {
   shotBtn.addEventListener("click", openShotModal);
 }
 if (shotClose) shotClose.addEventListener("click", closeShotModal);
-if (shotCaptureBtn) shotCaptureBtn.addEventListener("click", () => void triggerCapture());
+if (shotCaptureBtn) shotCaptureBtn.addEventListener("click", () => void confirmCaptureWithHint());
 if (shotRecaptureBtn) {
   shotRecaptureBtn.addEventListener("click", () => {
     if (shotFrame) {
@@ -522,7 +647,7 @@ if (shotRecaptureBtn) {
       shotCaptureBtn.classList.remove("hidden");
       shotCaptureBtn.disabled = false;
     }
-    void triggerCapture();
+    void confirmCaptureWithHint();
   });
 }
 if (shotCanvas) {
@@ -556,5 +681,33 @@ window.addEventListener("keydown", (e) => {
     if (!pickBtn || pickBtn.disabled) return;
     e.preventDefault();
     void handlePick();
+  }
+});
+
+// =========================================================================
+// Post-capture safety toast — fires when tab regains visibility right
+// after the user initiated a screenshot capture. Catches the case where
+// the user dismissed the hint modal AND still forgot they had to Alt+Tab
+// back. Only fires once per capture (captureToastShown guards).
+// =========================================================================
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState !== "visible") return;
+  if (!capturePending && !shotFrame) return; // nothing in flight, nothing fresh
+  if (captureToastShown) return;
+  if (!shotModal || shotModal.classList.contains("hidden")) return;
+
+  // Only toast if at least 800ms elapsed since capture started — otherwise the
+  // tab was barely hidden (e.g. user just confirmed in the share dialog).
+  const elapsed = Date.now() - capturePendingStartedAt;
+  if (elapsed < 800) return;
+
+  captureToastShown = true;
+
+  // If the frame is already drawn, point them at hover-to-pick.
+  // If still pending (rare — share dialog still up?), give a different nudge.
+  if (shotFrame) {
+    showToast("✨ Frame ready — hover to pick");
+  } else if (capturePending) {
+    showToast("👋 Welcome back — finish picking in the share dialog");
   }
 });

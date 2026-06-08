@@ -260,6 +260,116 @@ import BrandIcon from "./BrandIcon.astro";
     </div>
   </div>
 
+  {/* ===== PRE-CAPTURE HINT MODAL (heads-up about focus switch) ===== */}
+  <div
+    id="hint-modal"
+    class="hidden fixed inset-0 z-[55] flex items-center justify-center p-4"
+    style="background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px);"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="hint-modal-title"
+    aria-describedby="hint-modal-body"
+  >
+    <div
+      class="relative w-full max-w-md rounded-lg overflow-hidden"
+      style="background-color: var(--color-bg); box-shadow: var(--shadow-card);"
+    >
+      <div class="p-6">
+        <div class="flex items-start gap-3 mb-4">
+          <div
+            class="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-md"
+            style="background-color: var(--color-badge-bg); color: var(--color-badge-fg);"
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 9v4"/>
+              <path d="M12 17h.01"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3
+              id="hint-modal-title"
+              class="text-[17px] font-semibold text-[var(--color-fg)] mb-1"
+              style="letter-spacing: -0.015em;"
+            >
+              One quick heads-up
+            </h3>
+            <p class="text-[11px] text-[var(--color-fg-secondary)] uppercase tracking-wider font-mono font-medium">
+              How screen capture works
+            </p>
+          </div>
+        </div>
+
+        {/* Mini 3-step visual */}
+        <ol class="grid grid-cols-3 gap-2 mb-5" aria-hidden="true">
+          {[
+            { emoji: "📤", label: "Pick window" },
+            { emoji: "👀", label: "Browser focuses it" },
+            { emoji: "↩️", label: "Come back here" },
+          ].map((step, i) => (
+            <li
+              class="rounded-md p-3 text-center"
+              style="background-color: var(--color-bg-elevated); box-shadow: var(--shadow-ring);"
+            >
+              <div class="text-[22px] leading-none mb-1.5">{step.emoji}</div>
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[var(--color-fg-subtle)] mb-0.5">
+                Step {String(i + 1).padStart(2, "0")}
+              </div>
+              <div class="text-[11px] font-medium text-[var(--color-fg)] leading-tight">
+                {step.label}
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <p
+          id="hint-modal-body"
+          class="text-[14px] text-[var(--color-fg-secondary)] leading-relaxed mb-4"
+        >
+          After you click <strong class="text-[var(--color-fg)]">Continue</strong>, your
+          browser will switch focus to the window you're sharing.
+          <strong class="text-[var(--color-fg)]"> Press <kbd id="hint-shortcut-kbd" class="inline-block px-2 py-1 mx-0.5 rounded-md font-mono text-[12px] font-semibold text-[var(--color-fg)]" style="background-color: var(--color-surface); box-shadow: var(--shadow-ring), 0 1px 0 rgba(0,0,0,0.05);">Alt + Tab</kbd></strong>
+          to come back here — your captured frame will be waiting.
+        </p>
+
+        <label class="flex items-center gap-2 mb-5 cursor-pointer select-none group">
+          <input
+            type="checkbox"
+            id="hint-dontshow"
+            class="w-4 h-4 rounded cursor-pointer"
+            style="accent-color: var(--color-fg);"
+          />
+          <span class="text-[13px] text-[var(--color-fg-secondary)] group-hover:text-[var(--color-fg)] transition-colors">
+            Don't show this again
+          </span>
+        </label>
+
+        <div class="flex items-center justify-end gap-2">
+          <button
+            type="button"
+            id="hint-cancel"
+            class="px-4 py-2 rounded-md text-[13px] font-medium text-[var(--color-fg-secondary)] hover:text-[var(--color-fg)] transition-all"
+            style="background-color: var(--color-surface-strong); box-shadow: var(--shadow-ring);"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            id="hint-continue"
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-md text-[13px] font-medium bg-[var(--color-fg)] text-[var(--color-bg)] hover:opacity-90 transition-opacity"
+            autofocus
+          >
+            Continue
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {/* Toast */}
   <div
     id="toast"
