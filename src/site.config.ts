@@ -50,6 +50,14 @@ export const site = {
   contactEmail: env.PUBLIC_SITE_CONTACT_EMAIL ?? "shrestha.tripathi@gmail.com",
   jurisdiction: env.PUBLIC_SITE_JURISDICTION ?? "India",
   locale: env.PUBLIC_SITE_LOCALE ?? "en",
+
+  /**
+   * Google Analytics 4 Measurement ID (format: G-XXXXXXXXXX). Empty string
+   * disables the gtag.js snippet entirely — useful for forks and self-hosts.
+   * Only injected in production builds so localhost dev never pollutes the
+   * analytics property. See astro-google-analytics-4 skill.
+   */
+  gaId: env.PUBLIC_GA_MEASUREMENT_ID ?? "G-39NCRFEZPJ",
 } as const;
 
 /**

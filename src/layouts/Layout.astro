@@ -68,6 +68,23 @@ const allJsonLd = [orgSchema, websiteSchema, ...jsonLd];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
+    {/*
+      Google Analytics 4 — only injected in production builds with a configured
+      measurement ID. Gating on import.meta.env.PROD keeps localhost dev traffic
+      out of the analytics property. Empty site.gaId disables entirely (forks).
+    */}
+    {import.meta.env.PROD && site.gaId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
+        <script is:inline define:vars={{ gaId: site.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
