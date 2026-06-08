@@ -62,6 +62,24 @@ https://*.colortrail.pages.dev/*
 # Favicon — cache 30 days
 /favicon.svg
   Cache-Control: public, max-age=2592000
+/favicon.ico
+  Cache-Control: public, max-age=2592000
+  Content-Type: image/x-icon
+/favicon-32.png
+  Cache-Control: public, max-age=2592000
+
+# Apple touch icon + PWA icons — cache 30 days
+/apple-touch-icon.png
+  Cache-Control: public, max-age=2592000
+/icon-192.png
+  Cache-Control: public, max-age=2592000
+/icon-512.png
+  Cache-Control: public, max-age=2592000
+
+# Manifest — short cache
+/manifest.webmanifest
+  Cache-Control: public, max-age=3600
+  Content-Type: application/manifest+json
 
 # Sitemap & robots — short cache so SEO updates ship fast
 /sitemap.xml

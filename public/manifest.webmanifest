@@ -1,0 +1,27 @@
+{
+  "name": "Screen Color Picker",
+  "short_name": "ScreenColorPicker",
+  "description": "Pick any color from anywhere on your screen — your IDE, Photoshop, a YouTube video, a PDF, even another monitor. Free, in-browser, zero install. Built on the EyeDropper API.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
