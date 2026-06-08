@@ -1,5 +1,5 @@
 ---
-title: "ColorZilla vs ColorTrail: why I built a no-install alternative"
+title: "ColorZilla vs Screen Color Picker: why I built a no-install alternative"
 description: "ColorZilla is a great Chrome extension. But every extension that can sample pixel data needs 'read all your data on all websites'. Here's why I built a sandboxed website alternative instead."
 pubDate: 2026-06-10
 tags: ["ColorZilla", "Extensions", "Privacy"]
@@ -39,11 +39,11 @@ The API is brilliantly designed for this exact problem: it returns one sRGB pixe
 
 This is exactly the security model a color picker needs. Anything more is overreach.
 
-I built [ColorTrail](/) on top of this. Plus a Screenshot Picker mode for Firefox and Safari (which haven't shipped EyeDropper) using the universal `getDisplayMedia` API. Same screen-wide sampling. Zero extension. Zero permissions. Zero ads.
+I built [Screen Color Picker](/) on top of this. Plus a Screenshot Picker mode for Firefox and Safari (which haven't shipped EyeDropper) using the universal `getDisplayMedia` API. Same screen-wide sampling. Zero extension. Zero permissions. Zero ads.
 
 ## Side-by-side feature comparison
 
-| Feature | ColorZilla | ColorTrail |
+| Feature | ColorZilla | Screen Color Picker |
 |---------|------------|------------|
 | Install required | Chrome extension | Just a URL |
 | Permissions | "Read all data on all websites" | None |
@@ -59,9 +59,9 @@ I built [ColorTrail](/) on top of this. Plus a Screenshot Picker mode for Firefo
 | Mobile support | No | Partial (Screenshot mode) |
 | Cost | Free + paid | Free forever |
 
-**The honest read:** ColorZilla has features ColorTrail won't ship — page CSS analysis specifically requires the page-access permission that we built ColorTrail to avoid. If you need that feature, ColorZilla is still the right tool.
+**The honest read:** ColorZilla has features Screen Color Picker won't ship — page CSS analysis specifically requires the page-access permission that we built Screen Color Picker to avoid. If you need that feature, ColorZilla is still the right tool.
 
-For everything else — sampling a color from your screen and copying it out — ColorTrail wins on every axis.
+For everything else — sampling a color from your screen and copying it out — Screen Color Picker wins on every axis.
 
 ## Why "zero install" matters more than people think
 
@@ -74,13 +74,13 @@ That's fine for now. But install friction has real cost over time:
 - **Sharing friction.** Tell a designer friend about your color picker. "Cool, send me the link" — except there's no link. There's a Chrome Web Store URL, a 4MB download, a permission dialog, and an extension management panel they now have to think about.
 - **Cross-platform friction.** Firefox user? Safari user? Mobile user? Out of luck.
 
-With ColorTrail, "use this color picker" is: a URL you can DM someone. They click it. They use it. Done. The web wins on distribution every time.
+With Screen Color Picker, "use this color picker" is: a URL you can DM someone. They click it. They use it. Done. The web wins on distribution every time.
 
 ## The trust pitch
 
-Here's the thing I tell people who ask why they should trust ColorTrail:
+Here's the thing I tell people who ask why they should trust Screen Color Picker:
 
-> ColorTrail is a website. The browser sandbox limits what websites can do to a fraction of what extensions can. Even if I wanted to be malicious — read your other tabs, install crypto miners, exfiltrate your DMs — I couldn't, because the browser won't let me.
+> Screen Color Picker is a website. The browser sandbox limits what websites can do to a fraction of what extensions can. Even if I wanted to be malicious — read your other tabs, install crypto miners, exfiltrate your DMs — I couldn't, because the browser won't let me.
 
 That's the security model I want for a color picker. The same model I want for most utilities. The browser sandbox is one of the strongest pieces of consumer security infrastructure ever built. Extensions opt out of it. Websites don't.
 
@@ -96,7 +96,7 @@ In good conscience: keep ColorZilla if you specifically need:
 
 These require page-level access, and that's a legitimate use of the extension permission model. ColorZilla does these well.
 
-## When to switch to ColorTrail
+## When to switch to Screen Color Picker
 
 Switch if you mainly want:
 
@@ -113,7 +113,7 @@ Switch if you mainly want:
 
 - ColorZilla is good software but requires "read all your data on all websites"
 - Chrome shipped EyeDropper API in 2021 — sampling pixels without that permission is now possible
-- ColorTrail is a website using that API + Screenshot fallback for Firefox/Safari
+- Screen Color Picker is a website using that API + Screenshot fallback for Firefox/Safari
 - For pure screen-wide color picking: zero install + zero permissions is better
 - For page-level CSS extraction: ColorZilla still wins (needs page access)
 - Use whichever fits your threat model

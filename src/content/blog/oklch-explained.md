@@ -94,7 +94,7 @@ background: linear-gradient(in oklch, red, blue);
 
 OKLCH is a 2023 spec. Most "free online color picker" tools were built between 2010 and 2020. Their codebases don't have the conversion functions. The math is also non-trivial — sRGB → linear → LMS → cube root → OKLab → polar is a multi-step pipeline with magic constants.
 
-That's why I added native OKLCH output to [ColorTrail](/oklch-color-picker) from day one. Pick a pixel → get all four formats (HEX, RGB, HSL, OKLCH) instantly, copy whichever your codebase needs.
+That's why I added native OKLCH output to [Screen Color Picker](/oklch-color-picker) from day one. Pick a pixel → get all four formats (HEX, RGB, HSL, OKLCH) instantly, copy whichever your codebase needs.
 
 ## When to use which format
 
@@ -109,7 +109,7 @@ Use OKLCH for all *new* design system work. Keep HEX as a fallback for compatibi
 
 ## Try it now
 
-Open [ColorTrail's OKLCH picker](/oklch-color-picker). Click "Pick a color". Sample anything on your screen — a logo, a sunset photo, your IDE's syntax highlighting. You'll get the OKLCH value alongside HEX/RGB/HSL with one-click copy. No install, no permissions, runs in your browser.
+Open [Screen Color Picker's OKLCH picker](/oklch-color-picker). Click "Pick a color". Sample anything on your screen — a logo, a sunset photo, your IDE's syntax highlighting. You'll get the OKLCH value alongside HEX/RGB/HSL with one-click copy. No install, no permissions, runs in your browser.
 
 ## TL;DR
 
@@ -117,6 +117,6 @@ Open [ColorTrail's OKLCH picker](/oklch-color-picker). Click "Pick a color". Sam
 - It's the format design tokens should be in if you're starting a project today
 - Tailwind v4, Radix, Stripe, OpenProps all switched
 - Browser support has been universal since 2023
-- ColorTrail lets you pick any pixel and get OKLCH instantly, no install
+- Screen Color Picker lets you pick any pixel and get OKLCH instantly, no install
 
 The web has slowly been getting better at color. OKLCH is the step that ends 20 years of "why does this color ramp feel uneven" pain.

@@ -12,7 +12,7 @@
 
 const env = import.meta.env;
 
-const DEFAULT_DOMAIN = "colortrail.com";
+const DEFAULT_DOMAIN = "screencolorpicker.com";
 const DEFAULT_URL = `https://${DEFAULT_DOMAIN}`;
 const TOXIC = /\.pages\.dev/i;
 
@@ -23,8 +23,11 @@ const siteUrl = TOXIC.test(rawSiteUrl) ? DEFAULT_URL : rawSiteUrl;
 const siteDomain = TOXIC.test(rawSiteDomain) ? DEFAULT_DOMAIN : rawSiteDomain;
 
 export const site = {
-  name: env.PUBLIC_SITE_NAME ?? "ColorTrail",
-  shortName: env.PUBLIC_SITE_SHORT_NAME ?? "ColorTrail",
+  // "Screen Color Picker" — both the brand AND the #1 SEO keyword. The brand
+  // name being an exact-match for the search query is intentional; this is
+  // a descriptive-first, keyword-targeted tool.
+  name: env.PUBLIC_SITE_NAME ?? "Screen Color Picker",
+  shortName: env.PUBLIC_SITE_SHORT_NAME ?? "Screen Color Picker",
   tagline:
     env.PUBLIC_SITE_TAGLINE ??
     "Pick any color from your screen. Free, private, zero install.",
@@ -34,12 +37,17 @@ export const site = {
   domain: siteDomain,
   url: siteUrl.replace(/\/+$/, ""),
   basePath: (env.PUBLIC_BASE_PATH ?? "/").replace(/\/?$/, "/"),
-  github: env.PUBLIC_GITHUB_URL ?? "https://github.com/shrestha-tripathi/colortrail",
+  github: env.PUBLIC_GITHUB_URL ?? "https://github.com/shrestha-tripathi/screencolorpicker",
   ga4Id: env.PUBLIC_GA4_ID ?? "",
 
   // Author + contact (used by trust pages + JSON-LD)
+  //
+  // contactEmail is INTENTIONALLY a personal Gmail address, not a domain-mail
+  // (e.g. hello@screencolorpicker.com). User has standardized on direct
+  // personal contact across all microtools — single inbox to monitor, no
+  // domain-mail setup overhead, and faster reply turnaround.
   author: env.PUBLIC_SITE_AUTHOR ?? "Shrestha Tripathi",
-  contactEmail: env.PUBLIC_SITE_CONTACT_EMAIL ?? "hello@colortrail.com",
+  contactEmail: env.PUBLIC_SITE_CONTACT_EMAIL ?? "shrestha.tripathi@gmail.com",
   jurisdiction: env.PUBLIC_SITE_JURISDICTION ?? "India",
   locale: env.PUBLIC_SITE_LOCALE ?? "en",
 } as const;

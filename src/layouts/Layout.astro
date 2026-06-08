@@ -112,7 +112,7 @@ const allJsonLd = [orgSchema, websiteSchema, ...jsonLd];
     <script is:inline>
       (function () {
         try {
-          var stored = localStorage.getItem("colortrail:theme");
+          var stored = localStorage.getItem("screencolorpicker:theme");
           var theme = stored === "light" || stored === "dark"
             ? stored
             : "light"; /* default = light */
@@ -142,7 +142,7 @@ const allJsonLd = [orgSchema, websiteSchema, ...jsonLd];
         } else {
           document.documentElement.removeAttribute("data-theme");
         }
-        try { localStorage.setItem("colortrail:theme", next); } catch (e) {}
+        try { localStorage.setItem("screencolorpicker:theme", next); } catch (e) {}
         var meta = document.getElementById("theme-color-meta");
         if (meta) {
           meta.setAttribute("content", next === "dark" ? "#0a0a0a" : "#ffffff");

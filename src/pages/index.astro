@@ -17,15 +17,15 @@ const faqs = [
   },
   {
     q: "The eyedropper cancels when I switch tabs. How do I pick from another tab?",
-    a: "Use the 'Pick from screenshot' button next to the live picker. It captures one frozen frame from any window, tab, or screen you choose — then you can leisurely pick colors from that frame with a built-in 10× magnifier. The live EyeDropper is locked to whatever's visible at click-time and cancels on focus loss; that's a browser security constraint, not a ColorTrail limitation.",
+    a: "Use the 'Pick from screenshot' button next to the live picker. It captures one frozen frame from any window, tab, or screen you choose — then you can leisurely pick colors from that frame with a built-in 10× magnifier. The live EyeDropper is locked to whatever's visible at click-time and cancels on focus loss; that's a browser security constraint, not a Screen Color Picker limitation.",
   },
   {
-    q: "Is ColorTrail really free? What's the catch?",
+    q: "Is Screen Color Picker really free? What's the catch?",
     a: "100% free, forever. No accounts, no signup, no ads, no upsells, no Pro tier. Your colors never leave your device — everything runs in your browser via native APIs. We don't collect, store, or transmit any color data. The project is open-source on GitHub.",
   },
   {
     q: "Is it safer than browser extensions like ColorZilla?",
-    a: "Yes. ColorTrail requires zero browser permissions and can't read any of your other tabs. Browser extensions like ColorZilla need 'read all data on the websites you visit' — a permission that could expose passwords, banking pages, anything. The browser-native EyeDropper API is sandboxed: it only returns the sampled pixel color, nothing else.",
+    a: "Yes. Screen Color Picker requires zero browser permissions and can't read any of your other tabs. Browser extensions like ColorZilla need 'read all data on the websites you visit' — a permission that could expose passwords, banking pages, anything. The browser-native EyeDropper API is sandboxed: it only returns the sampled pixel color, nothing else.",
   },
   {
     q: "What is OKLCH and why do you support it?",
@@ -73,13 +73,13 @@ const howToSchema = {
   "@type": "HowTo",
   name: `How to pick a color from your screen with ${site.name}`,
   description:
-    "Step-by-step guide to picking a color from anywhere on your screen — inside or outside the browser — using ColorTrail's EyeDropper-powered picker.",
+    "Step-by-step guide to picking a color from anywhere on your screen — inside or outside the browser — using Screen Color Picker's EyeDropper-powered picker.",
   totalTime: "PT10S",
   step: [
     {
       "@type": "HowToStep",
       name: "Click the rainbow 'Pick a color' button",
-      text: "On colortrail.com, click the rainbow 'Pick a color' button (or press the keyboard shortcut P). Your cursor instantly becomes a precision eyedropper.",
+      text: "On screencolorpicker.com, click the rainbow 'Pick a color' button (or press the keyboard shortcut P). Your cursor instantly becomes a precision eyedropper.",
     },
     {
       "@type": "HowToStep",
@@ -263,7 +263,7 @@ const { sRGBHex } = await dropper.open();
         <p>
           That's it. No permissions prompt. No extension review. Just three
           lines and your browser becomes a Photoshop-grade color picker.
-          ColorTrail adds the rest: HEX/RGB/HSL/OKLCH conversion, palette
+          Screen Color Picker adds the rest: HEX/RGB/HSL/OKLCH conversion, palette
           history, copy-to-clipboard, a Screenshot-mode fallback for
           Firefox/Safari, and a 10× magnifier loupe.
         </p>
@@ -280,7 +280,7 @@ const { sRGBHex } = await dropper.open();
           <strong class="text-[var(--color-fg)]">Why isn't it universal yet?</strong>
           Mozilla (Firefox) publicly declined to implement, citing performance
           concerns and the unusual "system-wide" surface. WebKit (Safari)
-          hasn't signaled support either. So until those land, ColorTrail's
+          hasn't signaled support either. So until those land, Screen Color Picker's
           Screenshot Picker — built on the older but universal
           <code class="font-mono text-[14px] text-[var(--color-fg)]" style="background-color: var(--color-bg); padding: 1px 6px; border-radius: 4px;">getDisplayMedia</code> API — covers the gap.
         </p>

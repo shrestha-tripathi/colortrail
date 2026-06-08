@@ -1,22 +1,61 @@
-# Cloudflare Pages headers
-# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+# Cloudflare Pages _headers — applied to all routes.
+#
+# Mirrors the pattern used by FileTransferNow + HEICPix for consistency
+# across the worksoffline tool family.
+#
+# Goal: prevent the *.pages.dev preview domain from getting indexed
+# (otherwise it competes with the real domain for SEO + dilutes link equity).
+# Combined with the canonical <link> in Layout.astro (which always points
+# at site.url = the .com domain), this fully de-prioritizes the preview
+# infra in SERPs.
+#
+# ============================================================================
+# Noindex the .pages.dev infrastructure domain(s)
+# ============================================================================
+#
+# Cloudflare Pages always serves the site at the .pages.dev hostname AND
+# at any custom domain attached to the project. Same HTML reachable at both:
+#
+#   https://screencolorpicker.com         (canonical, indexable)
+#   https://screencolorpicker.pages.dev   (infra preview, NOT indexable)
+#
+# Google treats this as duplicate content. Same risk for per-branch /
+# per-commit preview deploys at *.screencolorpicker.pages.dev.
+#
+# Fix: send `X-Robots-Tag: noindex` on every response served from the
+# .pages.dev hostnames. Hostname-scoped rules — requests to the .com domain
+# don't match and stay fully indexable.
 
-# Cache static assets aggressively
-/_astro/*
-  Cache-Control: public, max-age=31536000, immutable
+https://screencolorpicker.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
 
-/favicon.svg
-  Cache-Control: public, max-age=2592000
+https://*.screencolorpicker.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
 
-# Sitemap & robots — short cache so updates ship fast
-/sitemap.xml
-  Cache-Control: public, max-age=3600
-/robots.txt
-  Cache-Control: public, max-age=3600
+# ============================================================================
+# Security headers (production + previews)
+# ============================================================================
 
-# Security headers — production only (preview deploys also get noindex via _redirects)
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# ============================================================================
+# Caching
+# ============================================================================
+
+# Hashed Astro assets — cache forever
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicon — cache 30 days
+/favicon.svg
+  Cache-Control: public, max-age=2592000
+
+# Sitemap & robots — short cache so SEO updates ship fast
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+/robots.txt
+  Cache-Control: public, max-age=3600

@@ -1,10 +1,17 @@
-# ColorTrail — robots.txt
-# Site is fully indexable; ad/analytics scrapers welcome.
+# robots.txt — see https://www.robotstxt.org/
+#
+# Mirrors the FileTransferNow + HEICPix pattern for consistency across
+# the worksoffline tool family.
+#
+# Allow all well-behaved crawlers to index everything. No stateful app
+# surfaces to exclude (the tool runs entirely in-page, no /share or
+# /transfer-style endpoints).
+#
+# Cloudflare's AI Crawl Control feature handles bot-class blocking
+# (GPTBot, ClaudeBot, etc.) at the edge — see CF dashboard if needed.
 
 User-agent: *
 Allow: /
 
-# Block common abuse — preview deploys send X-Robots-Tag noindex via _headers
-# instead, so we don't need per-URL blocks here.
-
-Sitemap: https://colortrail.com/sitemap.xml
+# Sitemap discovery
+Sitemap: https://screencolorpicker.com/sitemap.xml

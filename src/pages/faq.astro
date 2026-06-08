@@ -7,32 +7,32 @@ const faqs = [
   {
     cat: "Basics",
     q: "What is the EyeDropper API and why doesn't every browser have it?",
-    a: "The EyeDropper API (window.EyeDropper) is a browser-native feature shipped in Chrome 95 (Oct 2021), Edge 95+, Brave, and Opera. It turns the cursor into a system-wide color picker — sampling any pixel visible on your screen, including outside the browser, across multiple monitors. Firefox publicly declined to implement it (Mozilla position: 'negative'), and Safari hasn't signaled interest. For those browsers, ColorTrail's Screenshot Picker fills the gap using the universally-supported getDisplayMedia API.",
+    a: "The EyeDropper API (window.EyeDropper) is a browser-native feature shipped in Chrome 95 (Oct 2021), Edge 95+, Brave, and Opera. It turns the cursor into a system-wide color picker — sampling any pixel visible on your screen, including outside the browser, across multiple monitors. Firefox publicly declined to implement it (Mozilla position: 'negative'), and Safari hasn't signaled interest. For those browsers, Screen Color Picker's Screenshot Picker fills the gap using the universally-supported getDisplayMedia API.",
   },
   {
     cat: "Basics",
-    q: "How do I use ColorTrail to pick a color from anywhere on my screen?",
+    q: "How do I use Screen Color Picker to pick a color from anywhere on my screen?",
     a: "Click the rainbow 'Pick a color' button. Your cursor instantly becomes a precision eyedropper. Move it over any pixel — your IDE, Photoshop, a YouTube video, a PDF, another monitor — and click to capture. The HEX, RGB, HSL, and OKLCH values appear instantly with one-click copy. Or press the keyboard shortcut P from anywhere on the page.",
   },
   {
     cat: "Basics",
     q: "The eyedropper cancels when I switch tabs. How do I pick from another tab?",
-    a: "Use the 'Pick from screenshot' button next to the live picker. It captures one frozen frame from any window, tab, or screen you choose — then you can leisurely pick colors from that frame with a built-in 10× magnifier. The live EyeDropper is locked to whatever's visible at click-time and cancels on focus loss; that's a browser security constraint, not a ColorTrail limitation.",
+    a: "Use the 'Pick from screenshot' button next to the live picker. It captures one frozen frame from any window, tab, or screen you choose — then you can leisurely pick colors from that frame with a built-in 10× magnifier. The live EyeDropper is locked to whatever's visible at click-time and cancels on focus loss; that's a browser security constraint, not a Screen Color Picker limitation.",
   },
   {
     cat: "Trust",
-    q: "Is ColorTrail really free? What's the catch?",
+    q: "Is Screen Color Picker really free? What's the catch?",
     a: "100% free, forever. No accounts, no signup, no ads, no upsells, no Pro tier. Your colors never leave your device — everything runs in your browser via the native EyeDropper and getDisplayMedia APIs. We don't collect, store, or transmit any color data. The project is open-source on GitHub.",
   },
   {
     cat: "Trust",
-    q: "Can ColorTrail or any third party see the colors I pick?",
+    q: "Can Screen Color Picker or any third party see the colors I pick?",
     a: "No. Both the EyeDropper API and getDisplayMedia API are fully client-side — pixel data stays in JavaScript running in your browser, never sent over the network. Your palette history is stored in your browser's localStorage and never leaves your device. Captured screenshot frames are held in browser memory only and freed when you close the modal.",
   },
   {
     cat: "Trust",
-    q: "Is ColorTrail safe to use? Why is it better than browser extensions?",
-    a: "ColorTrail uses zero browser permissions, can't read any of your other tabs, and runs entirely client-side. Browser extensions like ColorZilla require 'read all data on the websites you visit' — a permission that lets them read passwords, banking pages, anything. The browser-native EyeDropper API is sandboxed and only returns the pixel color, not the surrounding context.",
+    q: "Is Screen Color Picker safe to use? Why is it better than browser extensions?",
+    a: "Screen Color Picker uses zero browser permissions, can't read any of your other tabs, and runs entirely client-side. Browser extensions like ColorZilla require 'read all data on the websites you visit' — a permission that lets them read passwords, banking pages, anything. The browser-native EyeDropper API is sandboxed and only returns the pixel color, not the surrounding context.",
   },
   {
     cat: "Compatibility",
@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     cat: "Compatibility",
-    q: "Does ColorTrail work on mobile?",
+    q: "Does Screen Color Picker work on mobile?",
     a: "Partially. On mobile Chrome (Android), the EyeDropper API exists but can only sample inside the current browser tab — not from other apps. For full-screen sampling, use a desktop browser. The Screenshot Picker works on mobile too, but mobile browsers offer fewer capture sources than desktop.",
   },
   {
@@ -56,8 +56,8 @@ const faqs = [
   },
   {
     cat: "Use cases",
-    q: "Does ColorTrail work offline?",
-    a: "After your browser has loaded the page once, ColorTrail works fully offline. It's a static site with no backend — no API calls, no analytics pings, no remote dependencies needed at runtime. Install it as a bookmark for instant offline access; we recommend installing as a PWA for fastest launch.",
+    q: "Does Screen Color Picker work offline?",
+    a: "After your browser has loaded the page once, Screen Color Picker works fully offline. It's a static site with no backend — no API calls, no analytics pings, no remote dependencies needed at runtime. Install it as a bookmark for instant offline access; we recommend installing as a PWA for fastest launch.",
   },
   {
     cat: "Use cases",
@@ -72,11 +72,11 @@ const faqs = [
   {
     cat: "Formats",
     q: "What's the difference between HEX, RGB, HSL, and OKLCH?",
-    a: "HEX (#RRGGBB) is a compact text encoding of RGB — most common in web code. RGB (red, green, blue) is the device-native format. HSL (hue, saturation, lightness) is more intuitive for humans to manipulate but isn't perceptually uniform. OKLCH (lightness, chroma, hue) is the modern perceptually-uniform choice, recommended for design systems shipping in 2024+. ColorTrail shows all four for every color you pick, so you can copy whichever matches your codebase.",
+    a: "HEX (#RRGGBB) is a compact text encoding of RGB — most common in web code. RGB (red, green, blue) is the device-native format. HSL (hue, saturation, lightness) is more intuitive for humans to manipulate but isn't perceptually uniform. OKLCH (lightness, chroma, hue) is the modern perceptually-uniform choice, recommended for design systems shipping in 2024+. Screen Color Picker shows all four for every color you pick, so you can copy whichever matches your codebase.",
   },
   {
     cat: "Roadmap",
-    q: "Does ColorTrail support color blindness or contrast checking?",
+    q: "Does Screen Color Picker support color blindness or contrast checking?",
     a: "Not yet — we're considering a WCAG contrast checker and color blindness simulation modes in a future release. For now, every color output displays in 4 formats simultaneously (HEX, RGB, HSL, OKLCH) so you can plug them into your favorite contrast checker.",
   },
   {
@@ -86,12 +86,12 @@ const faqs = [
   },
   {
     cat: "Comparisons",
-    q: "How is ColorTrail different from ColorZilla?",
-    a: "ColorZilla is a Chrome extension that requires 'read all data on the websites you visit' permission, is ad-injected in the free tier, and only works inside the browser tab where it's installed. ColorTrail is a zero-install website that uses your browser's native EyeDropper API, requires no permissions, works system-wide (outside the browser too), has no ads, and supports OKLCH out of the box.",
+    q: "How is Screen Color Picker different from ColorZilla?",
+    a: "ColorZilla is a Chrome extension that requires 'read all data on the websites you visit' permission, is ad-injected in the free tier, and only works inside the browser tab where it's installed. Screen Color Picker is a zero-install website that uses your browser's native EyeDropper API, requires no permissions, works system-wide (outside the browser too), has no ads, and supports OKLCH out of the box.",
   },
   {
     cat: "Brand",
-    q: "Why 'ColorTrail'? What's with the name?",
+    q: "Why 'Screen Color Picker'? What's with the name?",
     a: "'Trail' because we save your recent palette as you go — a trail of colors you've picked. We're a tiny one-tap utility, not a full design suite. Less is the moat.",
   },
 ];

@@ -14,7 +14,7 @@ interface Props {
   class?: string;
   ariaLabel?: string;
 }
-const { size = 24, class: extraClass = "", ariaLabel = "ColorTrail icon" } = Astro.props;
+const { size = 24, class: extraClass = "", ariaLabel = "Screen Color Picker icon" } = Astro.props;
 ---
 <svg
   viewBox="0 0 24 24"
@@ -22,7 +22,7 @@ const { size = 24, class: extraClass = "", ariaLabel = "ColorTrail icon" } = Ast
   height={size}
   class={extraClass}
   fill="none"
-  stroke="url(#colortrail-gradient)"
+  stroke="url(#screencolorpicker-gradient)"
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
@@ -31,7 +31,7 @@ const { size = 24, class: extraClass = "", ariaLabel = "ColorTrail icon" } = Ast
 >
   <defs>
     {/* VIBGYOR — softened slightly for both-theme legibility */}
-    <linearGradient id="colortrail-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="screencolorpicker-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ff3d3d" /> {/* Red */}
       <stop offset="16%" stop-color="#ff8a3d" /> {/* Orange */}
       <stop offset="33%" stop-color="#ffd23d" /> {/* Yellow */}

@@ -38,12 +38,12 @@ const faqs = [
     a: "OKLCH is a perceptually uniform color space introduced by Björn Ottosson in 2020 and standardized in CSS Color Level 4 (2023+). 'Perceptually uniform' means equal changes in L, C, or H values look like equal changes to the human eye — something HEX, RGB, and HSL all fail at. When you lighten a color in HSL by 10%, the visual change is wildly inconsistent across hues. In OKLCH, +10% lightness always looks the same. That's why Tailwind v4, Radix Colors, OpenProps, and most modern design systems are switching to OKLCH.",
   },
   {
-    q: "How do I convert HEX to OKLCH with ColorTrail?",
-    a: "Pick any color from your screen — or click a swatch in your palette history. ColorTrail instantly shows the OKLCH value alongside HEX, RGB, and HSL with one-click copy. The conversion uses the canonical Björn Ottosson sRGB → OKLab → OKLCH pipeline; no rounding errors versus what Tailwind v4 or oklch.com produces.",
+    q: "How do I convert HEX to OKLCH with Screen Color Picker?",
+    a: "Pick any color from your screen — or click a swatch in your palette history. Screen Color Picker instantly shows the OKLCH value alongside HEX, RGB, and HSL with one-click copy. The conversion uses the canonical Björn Ottosson sRGB → OKLab → OKLCH pipeline; no rounding errors versus what Tailwind v4 or oklch.com produces.",
   },
   {
-    q: "Does ColorTrail support OKLab too, or just OKLCH?",
-    a: "ColorTrail outputs OKLCH (the polar form: Lightness, Chroma, Hue) because that's what CSS Color Level 4 standardized and what design systems use. OKLab is the rectangular underlying form (L, a, b) — OKLCH is computed from it. If you need raw OKLab values, the L from OKLCH is identical; chroma and hue convert trivially with sqrt(a²+b²) and atan2(b,a).",
+    q: "Does Screen Color Picker support OKLab too, or just OKLCH?",
+    a: "Screen Color Picker outputs OKLCH (the polar form: Lightness, Chroma, Hue) because that's what CSS Color Level 4 standardized and what design systems use. OKLab is the rectangular underlying form (L, a, b) — OKLCH is computed from it. If you need raw OKLab values, the L from OKLCH is identical; chroma and hue convert trivially with sqrt(a²+b²) and atan2(b,a).",
   },
   {
     q: "Why don't other online color pickers show OKLCH?",
@@ -172,7 +172,7 @@ const faqSchema = {
       </h2>
       <p class="text-[15.5px] text-[var(--color-fg-secondary)] mb-6 leading-relaxed">
         Tailwind v4's <code class="font-mono text-[14px] text-[var(--color-fg)]">@theme</code> directive
-        uses native CSS color functions. Pick a brand color with ColorTrail,
+        uses native CSS color functions. Pick a brand color with Screen Color Picker,
         copy the OKLCH output, paste:
       </p>
       <pre class="rounded-md p-4 text-[14px] overflow-x-auto" style="background-color: var(--color-bg); box-shadow: var(--shadow-ring);"><code class="font-mono text-[var(--color-fg)]">{`/* global.css */
@@ -181,7 +181,7 @@ const faqSchema = {
 @theme {
   --color-brand-50:  oklch(97% 0.012 280);
   --color-brand-100: oklch(94% 0.025 280);
-  --color-brand-500: oklch(58.51% 0.1817 280.3);  /* ← picked w/ ColorTrail */
+  --color-brand-500: oklch(58.51% 0.1817 280.3);  /* ← picked w/ Screen Color Picker */
   --color-brand-900: oklch(28% 0.135 280);
 }`}</code></pre>
 

@@ -86,7 +86,7 @@ if (hintShortcutKbd) {
   hintShortcutKbd.textContent = IS_MAC ? "⌘ + Tab" : "Alt + Tab";
 }
 
-const HINT_DISMISSED_KEY = "colortrail:screenshotHintDismissed";
+const HINT_DISMISSED_KEY = "screencolorpicker:screenshotHintDismissed";
 
 if (!pickBtn) {
   console.debug("ColorPicker root not found, script no-op");

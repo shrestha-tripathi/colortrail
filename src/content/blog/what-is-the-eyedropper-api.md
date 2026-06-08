@@ -95,7 +95,7 @@ Workarounds:
 
 1. **Arrange windows side-by-side first.** Put your IDE on the left, browser on the right. Now both are visible without focus changes.
 2. **Use multiple monitors.** Pin the browser to one monitor, the app you're sampling from to another. Both stay visible.
-3. **Use a screen capture workaround.** Capture the source window first (via `navigator.mediaDevices.getDisplayMedia`), then sample pixels from the captured frame at leisure. This is what we built into [ColorTrail's Screenshot Picker mode](/).
+3. **Use a screen capture workaround.** Capture the source window first (via `navigator.mediaDevices.getDisplayMedia`), then sample pixels from the captured frame at leisure. This is what we built into [Screen Color Picker's Screenshot Picker mode](/).
 
 ## Browser support reality check (June 2026)
 
@@ -130,11 +130,11 @@ A non-exhaustive list of things that became trivial in October 2021:
 
 The web platform got more powerful overnight and most people missed it.
 
-## Why I built ColorTrail
+## Why I built Screen Color Picker
 
 I'm a developer who pivots between Figma, VS Code, Slack, and a browser dozens of times a day. Every time I needed to grab a color from somewhere weird — a Slack screenshot, a YouTube paused frame, a Notion doc — I'd reach for an extension, then remember the permission cost, then either install it anyway and feel guilty, or screenshot+upload to an image color picker.
 
-[ColorTrail](/) is the missing tool: just a URL. Bookmark it. Press P. Sample from anywhere. Get HEX, RGB, HSL, and OKLCH at once. Or use Screenshot mode if you need to sample from another tab without focus-switching.
+[Screen Color Picker](/) is the missing tool: just a URL. Bookmark it. Press P. Sample from anywhere. Get HEX, RGB, HSL, and OKLCH at once. Or use Screenshot mode if you need to sample from another tab without focus-switching.
 
 It's not novel. It's not VC-funded. It's just the EyeDropper API + a clean UI + Screenshot fallback for Firefox/Safari. The browser already had all the magic — I just put it on a page.
 

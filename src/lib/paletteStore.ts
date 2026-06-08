@@ -7,7 +7,7 @@
  * Wrapped in try/catch — private mode / quota-exceeded silently no-op.
  */
 
-const STORAGE_KEY = "colortrail:palette:v1";
+const STORAGE_KEY = "screencolorpicker:palette:v1";
 const MAX = 24;
 
 const safeStorage = (): Storage | null => {

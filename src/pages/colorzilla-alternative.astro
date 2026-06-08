@@ -27,19 +27,19 @@ const webAppSchema = {
 const faqs = [
   {
     q: "Is ColorZilla safe to use?",
-    a: "ColorZilla is widely used and not known for malicious behavior, but the underlying issue is the permission model — like every Chrome extension that can sample pixel data, it requires 'read and change all your data on the websites you visit'. That permission lets the extension see passwords, banking pages, private messages — anything in any tab. Even if the developer is trustworthy, an extension update or a compromised author account could expose that surface area. ColorTrail avoids this entirely by using the browser's sandboxed EyeDropper API, which only returns the sampled pixel color, never the surrounding context.",
+    a: "ColorZilla is widely used and not known for malicious behavior, but the underlying issue is the permission model — like every Chrome extension that can sample pixel data, it requires 'read and change all your data on the websites you visit'. That permission lets the extension see passwords, banking pages, private messages — anything in any tab. Even if the developer is trustworthy, an extension update or a compromised author account could expose that surface area. Screen Color Picker avoids this entirely by using the browser's sandboxed EyeDropper API, which only returns the sampled pixel color, never the surrounding context.",
   },
   {
-    q: "Why use ColorTrail instead of ColorZilla?",
-    a: "Three reasons: (1) Zero permissions — we can't see any of your tabs, period. (2) Zero install — no Chrome Web Store, no extension management, no updates. Just bookmark a URL. (3) OKLCH output — modern design systems use OKLCH, and most extensions including ColorZilla don't expose it. ColorTrail also has a built-in Screenshot Picker mode that works in Firefox and Safari, which no Chrome extension can.",
+    q: "Why use Screen Color Picker instead of ColorZilla?",
+    a: "Three reasons: (1) Zero permissions — we can't see any of your tabs, period. (2) Zero install — no Chrome Web Store, no extension management, no updates. Just bookmark a URL. (3) OKLCH output — modern design systems use OKLCH, and most extensions including ColorZilla don't expose it. Screen Color Picker also has a built-in Screenshot Picker mode that works in Firefox and Safari, which no Chrome extension can.",
   },
   {
-    q: "Does ColorTrail have all the features ColorZilla has?",
-    a: "We have the core: screen-wide picking, multi-format output (HEX/RGB/HSL/OKLCH), palette history, copy-to-clipboard. ColorZilla also has gradient generation, palette browser, and CSS color analysis — features we're considering for v2. For pure 'sample a pixel, copy the color' workflows (which is 90% of usage), ColorTrail is the cleaner choice.",
+    q: "Does Screen Color Picker have all the features ColorZilla has?",
+    a: "We have the core: screen-wide picking, multi-format output (HEX/RGB/HSL/OKLCH), palette history, copy-to-clipboard. ColorZilla also has gradient generation, palette browser, and CSS color analysis — features we're considering for v2. For pure 'sample a pixel, copy the color' workflows (which is 90% of usage), Screen Color Picker is the cleaner choice.",
   },
   {
-    q: "Can I use ColorTrail in Firefox or Safari?",
-    a: "Yes — that's a big win over ColorZilla, which is Chrome-only. ColorTrail's live picker works in Chrome, Edge, Brave, and Opera (Chromium-based browsers that have EyeDropper API). For Firefox and Safari, our Screenshot Picker mode uses the universally-supported getDisplayMedia API to capture any window or screen, then lets you pick colors from the captured frame.",
+    q: "Can I use Screen Color Picker in Firefox or Safari?",
+    a: "Yes — that's a big win over ColorZilla, which is Chrome-only. Screen Color Picker's live picker works in Chrome, Edge, Brave, and Opera (Chromium-based browsers that have EyeDropper API). For Firefox and Safari, our Screenshot Picker mode uses the universally-supported getDisplayMedia API to capture any window or screen, then lets you pick colors from the captured frame.",
   },
   {
     q: "Is ColorZilla still being maintained?",
@@ -97,7 +97,7 @@ const faqSchema = {
       <div class="text-center mb-12">
         <p class="eyebrow mb-3">Side-by-side</p>
         <h2 class="heading-section text-[30px] sm:text-[38px] text-balance">
-          ColorTrail vs ColorZilla.
+          Screen Color Picker vs ColorZilla.
         </h2>
       </div>
 
@@ -134,7 +134,7 @@ const faqSchema = {
       </div>
 
       <p class="mt-6 text-center text-[14px] text-[var(--color-fg-secondary)]">
-        ColorTrail is the right choice if you want zero extensions + zero permissions + modern formats.
+        Screen Color Picker is the right choice if you want zero extensions + zero permissions + modern formats.
         ColorZilla is still solid if you need gradient generation built-in.
       </p>
     </div>
@@ -165,7 +165,7 @@ const faqSchema = {
           The browser-native EyeDropper API was specifically designed to avoid
           this. It's sandboxed: the only thing returned to JavaScript is a single
           sRGB pixel value. No surrounding pixels, no screenshot, no DOM access.
-          By using ColorTrail, you get the same screen-picking power without ever
+          By using Screen Color Picker, you get the same screen-picking power without ever
           granting "read everything" access to anyone.
         </p>
       </div>
@@ -197,11 +197,11 @@ const faqSchema = {
   <section class="px-4 sm:px-6 py-16" style="box-shadow: inset 0 1px 0 var(--color-border);">
     <div class="mx-auto max-w-2xl text-center">
       <a href={b("/")} class="btn-brand inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-[15px] mb-4">
-        Try ColorTrail →
+        Try Screen Color Picker →
       </a>
       <p class="text-[13px] text-[var(--color-fg-subtle)]">
         Or <a href={b("/install")} class="text-[var(--color-accent)] underline underline-offset-2">install as a bookmark/PWA</a>
-        · <a href={b("/blog/colorzilla-vs-colortrail")} class="text-[var(--color-accent)] underline underline-offset-2">read the deep-dive</a>
+        · <a href={b("/blog/colorzilla-vs-screencolorpicker")} class="text-[var(--color-accent)] underline underline-offset-2">read the deep-dive</a>
       </p>
     </div>
   </section>

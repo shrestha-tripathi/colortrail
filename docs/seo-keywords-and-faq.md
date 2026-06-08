@@ -1,4 +1,4 @@
-# ColorTrail — SEO Keyword Corpus & FAQ Master
+# Screen Color Picker — SEO Keyword Corpus & FAQ Master
 
 Generated 2026-06-08 from Google autocomplete API research. This is the
 canonical source for all FAQ Q&As, landing-page keyword targets, and blog
@@ -157,10 +157,10 @@ on screen — including outside the browser, across multiple monitors — and
 requires zero permissions. Chrome shipped it in 2021 (v95), followed by
 Edge, Brave, and Opera. Firefox publicly declined to implement it (Mozilla
 position: "negative"), and Safari hasn't signaled interest yet. For those
-browsers, ColorTrail's Screenshot Picker fills the gap by using the
+browsers, Screen Color Picker's Screenshot Picker fills the gap by using the
 universally-supported getDisplayMedia API.
 
-### Q2. How do I use ColorTrail to pick a color from anywhere on my screen?
+### Q2. How do I use Screen Color Picker to pick a color from anywhere on my screen?
 
 Click the rainbow "Pick a color" button. Your cursor instantly becomes a
 precision eyedropper. Move it over any pixel on your entire screen — your
@@ -176,9 +176,9 @@ the `getDisplayMedia` API to capture one frozen frame from any window,
 tab, or screen you choose — then you can leisurely pick colors from that
 frame with a built-in 10× magnifier. The live EyeDropper API is locked
 to whatever's visible at click-time and cancels on focus loss; that's a
-browser security constraint, not a ColorTrail one.
+browser security constraint, not a Screen Color Picker one.
 
-### Q4. Is ColorTrail really free? What's the catch?
+### Q4. Is Screen Color Picker really free? What's the catch?
 
 100% free, forever. No accounts, no signup, no ads, no upsells, no Pro
 tier. Your colors never leave your device — everything runs in your
@@ -186,7 +186,7 @@ browser via the native EyeDropper and getDisplayMedia APIs. We don't
 collect, store, or transmit any color data you pick. The project is
 open-source on GitHub.
 
-### Q5. Can ColorTrail or any third party see the colors I pick?
+### Q5. Can Screen Color Picker or any third party see the colors I pick?
 
 No. Both the EyeDropper API and getDisplayMedia API are fully
 client-side — pixel data stays in JavaScript running in your browser,
@@ -212,18 +212,18 @@ hasn't signaled support either. For those browsers, use "Pick from
 screenshot" — `getDisplayMedia` is universally supported (Chrome 72+,
 Firefox 66+, Safari 13+, Edge 79+).
 
-### Q8. Is ColorTrail safe to use? Why is it better than browser extensions?
+### Q8. Is Screen Color Picker safe to use? Why is it better than browser extensions?
 
-ColorTrail uses zero browser permissions, can't read any of your other
+Screen Color Picker uses zero browser permissions, can't read any of your other
 tabs, and runs entirely client-side. Browser extensions like ColorZilla
 require "read all data on the websites you visit" — a permission that
 lets them read passwords, banking pages, anything. The browser-native
 EyeDropper API is sandboxed and only returns the pixel color, not the
 surrounding context.
 
-### Q9. Does ColorTrail work offline?
+### Q9. Does Screen Color Picker work offline?
 
-After your browser has loaded the page once, ColorTrail works fully
+After your browser has loaded the page once, Screen Color Picker works fully
 offline. It's a static site with no backend — no API calls, no analytics
 pings, no remote dependencies needed at runtime. Install it as a
 bookmark for instant offline access; we recommend installing as a PWA
@@ -237,7 +237,7 @@ streamed content, and images in any app. For paused videos in another
 tab, Screenshot mode captures the exact frame you want without focus
 loss.
 
-### Q11. Does ColorTrail support color blindness or contrast checking?
+### Q11. Does Screen Color Picker support color blindness or contrast checking?
 
 Not yet — we're considering a WCAG contrast checker and color blindness
 simulation modes in a future release. For now, every color output
@@ -258,7 +258,7 @@ sampled pixel, identical to what tools like Photoshop's Eyedropper or
 macOS Digital Color Meter return for the same pixel. Screenshot mode
 also samples directly from the captured bitmap with no compression.
 
-### Q14. Does ColorTrail work on mobile?
+### Q14. Does Screen Color Picker work on mobile?
 
 Partially. On mobile Chrome (Android), the EyeDropper API exists but
 can only sample inside the current browser tab — not from other apps.
@@ -274,16 +274,16 @@ signal. Mobile Chromium: tab-only sampling. Check
 [caniuse.com/eyedropper-api](https://caniuse.com/?search=eyedropper) for
 real-time status.
 
-### Q16. How is ColorTrail different from ColorZilla?
+### Q16. How is Screen Color Picker different from ColorZilla?
 
 ColorZilla is a Chrome extension that requires "read all data on the
 websites you visit" permission, is ad-injected in the free tier, and
-only works inside the browser tab where it's installed. ColorTrail is
+only works inside the browser tab where it's installed. Screen Color Picker is
 a zero-install website that uses your browser's native EyeDropper API,
 requires no permissions, works system-wide (outside the browser too),
 has no ads, and supports OKLCH out of the box.
 
-### Q17. Why "ColorTrail"? What's with the name?
+### Q17. Why "Screen Color Picker"? What's with the name?
 
 "Trail" because we save your recent palette as you go — a trail of
 colors you've picked. We're a tiny one-tap utility, not a full design
@@ -296,7 +296,7 @@ code. RGB (red, green, blue) is the device-native format. HSL (hue,
 saturation, lightness) is more intuitive for humans to manipulate but
 isn't perceptually uniform. OKLCH (lightness, chroma, hue) is the
 modern perceptually-uniform choice, recommended for design systems
-shipping in 2024+. ColorTrail shows all four for every color you pick,
+shipping in 2024+. Screen Color Picker shows all four for every color you pick,
 so you can copy whichever matches your codebase or design tool.
 
 ---
@@ -313,7 +313,7 @@ so you can copy whichever matches your codebase or design tool.
 | `/faq` | All FAQ Qs | FAQPage | Canonical Q&A index |
 | `/blog/eyedropper-api-deep-dive` | Bucket F + dev | BlogPosting | Technical explainer |
 | `/blog/oklch-explained` | Bucket B + F | BlogPosting | OKLCH explainer |
-| `/blog/colorzilla-vs-colortrail` | Bucket C | BlogPosting | Comparison content |
+| `/blog/colorzilla-vs-screencolorpicker` | Bucket C | BlogPosting | Comparison content |
 
 ---
 
